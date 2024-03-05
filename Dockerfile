@@ -1,28 +1,26 @@
-FROM alpine:latest
+FROM alpine:3 as downloader
 
-RUN apk add -v build-base
-RUN apk add -v go 
-RUN apk add -v ca-certificates
+ARG TARGETOS
+ARG TARGETARCH
+ARG VERSION=0.2.8
+
+ENV BUILDX_ARCH="${TARGETOS:-linux}_${TARGETARCH:-amd64}"
+
+# Install the dependencies
 RUN apk add --no-cache \
+    ca-certificates \
     unzip \
-    # this is needed only if you want to use scp to copy later your pb_data locally
-    openssh
+    wget \
+    zip \
+    zlib-dev
 
-# Copy your custom PocketBase and build
-RUN unzip ./pocketbase -d /pb/
-WORKDIR /pb
+RUN wget https://github.com/pocketbase/pocketbase/releases/download/v${VERSION}/pocketbase_${VERSION}_${BUILDX_ARCH}.zip \
+    && unzip pocketbase_${VERSION}_${BUILDX_ARCH}.zip \
+    && chmod +x /pocketbase
 
-# Note: This will pull the latest version of pocketbase. If you are just doing 
-# simple customizations and don't have a local build environment for Go, 
-# leave this line in. 
-# For more complex builds that include other dependencies, remove this 
-# line and rely on the go.sum lockfile.
-RUN go get github.com/pocketbase/pocketbase
+FROM scratch
 
-RUN go build
-WORKDIR /
+EXPOSE 8090
 
-EXPOSE 9090
-
-# start PocketBase
-CMD ["/pb/pocketbase", "serve", "--http=0.0.0.0:9090"]
+COPY --from=downloader /pocketbase /usr/local/bin/pocketbase
+CMD ["/usr/local/bin/pocketbase", "serve", "--http=0.0.0.0:8090"]
