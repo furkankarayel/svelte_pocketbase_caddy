@@ -9,7 +9,7 @@ RUN apk add --no-cache \
     openssh
 
 # Copy your custom PocketBase and build
-RUN unzip /tmp/pb.zip -d /pb/
+RUN unzip ./pocketbase -d /pb/
 WORKDIR /pb
 
 # Note: This will pull the latest version of pocketbase. If you are just doing 
