@@ -1,26 +1,15 @@
-FROM alpine:3 as downloader
+FROM alpine:latest
 
-ARG TARGETOS
-ARG TARGETARCH
-ARG VERSION=0.2.8
-
-ENV BUILDX_ARCH="${TARGETOS:-linux}_${TARGETARCH:-arm64}"
-
-# Install the dependencies
-RUN apk add --no-cache \
-    ca-certificates \
+RUN apk add --no-cache  \
+    bash \
     unzip \
-    wget \
-    zip \
-    zlib-dev
+    ca-certificates
 
-RUN wget https://github.com/pocketbase/pocketbase/releases/download/v${VERSION}/pocketbase_${VERSION}_${BUILDX_ARCH}.zip \
-    && unzip pocketbase_${VERSION}_${BUILDX_ARCH}.zip \
-    && chmod +x /pocketbase
-
-FROM scratch
+ARG PB_VERSION=0.12.0
+ADD https://github.com/pocketbase/pocketbase/releases/download/v${PB_VERSION}/pocketbase_${PB_VERSION}_linux_amd64.zip /tmp/pb.zip
+RUN unzip /tmp/pb.zip -d /pb
+RUN mkdir /pb/pb_data
 
 EXPOSE 8090
 
-COPY --from=downloader /pocketbase /usr/local/bin/pocketbase
-CMD ["/usr/local/bin/pocketbase", "serve", "--http=0.0.0.0:8090"]
+CMD ["/pb/pocketbase", "serve", "--http=0.0.0.0:8090"]
