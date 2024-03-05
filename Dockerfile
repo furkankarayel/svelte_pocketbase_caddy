@@ -4,7 +4,7 @@ ARG TARGETOS
 ARG TARGETARCH
 ARG VERSION=0.2.8
 
-ENV BUILDX_ARCH="${TARGETOS:-linux}_${TARGETARCH:-amd64}"
+ENV BUILDX_ARCH="${TARGETOS:-linux}_${TARGETARCH:-arm64}"
 
 # Install the dependencies
 RUN apk add --no-cache \
