@@ -12,4 +12,4 @@ RUN mkdir /pb/pb_data
 
 EXPOSE 8090
 
-CMD ["/pb/pocketbase", "serve", "--http=0.0.0.0:8090"]
+CMD ["/pb/pocketbase", "serve", "--http=0.0.0.0:8090", "--dir='/root/pb_data'"]
