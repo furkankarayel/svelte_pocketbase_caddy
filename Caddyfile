@@ -1,3 +1,3 @@
-116.203.104.0 {
+db.kastonia.de, db.furk4n.com {
   reverse_proxy pocketbase:8090
 }
