@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  pocketbase:
+    build: .
+    volumes:
+      - pb_data:/pb_data
+    networks:
+      - pocketnet
+
+  caddy:
+    image: caddy:2-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - pocketnet
+    depends_on:
+      - pocketbase
+
+networks:
+  pocketnet:
+
+
+volumes:
+  pb_data:
+  caddy_data:
+  caddy_config:
