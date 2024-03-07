@@ -17,7 +17,7 @@ services:
       - caddy_data:/data
       - caddy_config:/config
     networks:
-      - pocketnet6
+      - pocketnet
     depends_on:
       - pocketbase
   page1:
