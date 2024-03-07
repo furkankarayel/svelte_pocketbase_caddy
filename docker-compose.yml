@@ -23,7 +23,6 @@ services:
   page1:
     build:
       context: .
-      args:
       dockerfile: web/kastonia/Dockerfile
 
 networks:
