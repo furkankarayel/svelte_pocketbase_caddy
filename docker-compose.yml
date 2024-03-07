@@ -24,7 +24,7 @@ services:
     build:
       context: .
       args:
-      dockerfile: Dockerfile_kastonia
+      dockerfile: web/kastonia/Dockerfile
 
 networks:
   pocketnet:
