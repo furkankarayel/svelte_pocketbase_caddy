@@ -4,7 +4,7 @@ services:
   pocketbase:
     build: .
     volumes:
-      - pb/pb_data:/pb/pb_data
+      - ./pb/pb_data:/pb/pb_data
     networks:
       - pocketnet
 
@@ -27,6 +27,5 @@ networks:
 
 
 volumes:
-  pb:
   caddy_data:
   caddy_config:
