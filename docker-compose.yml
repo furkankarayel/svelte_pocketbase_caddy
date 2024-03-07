@@ -4,7 +4,7 @@ services:
   pocketbase:
     build: .
     volumes:
-      - pb/pb_data:/pb_data:rw
+      - pb/pb_data:/pb/pb_data
     networks:
       - pocketnet
 
