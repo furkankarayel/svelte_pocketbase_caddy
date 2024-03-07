@@ -22,7 +22,7 @@ services:
       - pocketbase
   page1:
     build:
-      context: .
+      context: web/kastonia
       dockerfile: web/kastonia/Dockerfile
 
 networks:
