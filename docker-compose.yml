@@ -27,6 +27,6 @@ networks:
 
 
 volumes:
-  pb_data:
+  pb:
   caddy_data:
   caddy_config:
