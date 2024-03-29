@@ -23,7 +23,7 @@ services:
   page1:
     build:
       context: ./web/kastonia
-      dockerfile: web/kastonia/Dockerfile
+      dockerfile: ./Dockerfile
 
 networks:
   pocketnet:
