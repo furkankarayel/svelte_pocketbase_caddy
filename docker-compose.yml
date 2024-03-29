@@ -22,7 +22,7 @@ services:
       - pocketbase
   page1:
     build:
-      context: ./web/kastonia
+      context: ./svelte-src
       dockerfile: ./Dockerfile
 
 networks:
